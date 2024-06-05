@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RuneMod_Launcher:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RuneMod_Launcher_jar</output-path>
+    <root id="archive" name="RuneMod.jar">
+      <element id="module-output" name="RuneMod_Launcher" />
+    </root>
+  </artifact>
+</component>

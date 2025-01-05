@@ -1,0 +1,321 @@
+2025-01-04 22:54:20 GMT [main] INFO  net.runelite.client.RuneLite - RuneLite 1.10.46.1 (launcher version unknown) starting up, args: --developer-mode
+2025-01-04 22:54:20 GMT [main] INFO  net.runelite.client.RuneLite - Java VM arguments: -ea
+2025-01-04 22:54:21 GMT [Preloader] INFO  net.runelite.client.rs.ClientLoader - Using cached vanilla client
+2025-01-04 22:54:22 GMT [Preloader] INFO  net.runelite.client.rs.ClientLoader - injected-client 12257883174.345
+2025-01-04 22:54:22 GMT [main] INFO  n.r.client.account.SessionManager - No session file exists
+2025-01-04 22:54:22 GMT [main] INFO  n.r.client.config.ConfigManager - Profile 'default' (sync: false, active: true, id: 98575807353500)
+2025-01-04 22:54:22 GMT [main] INFO  n.r.client.config.ConfigManager - Using profile: default (98575807353500)
+2025-01-04 22:54:23 GMT [main] INFO  n.r.c.plugins.kourendlibrary.Library - Library is now reset
+2025-01-04 22:54:23 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "keyframecamera" jar "sxkuoBSFYXtS-Nmm3P1Hw1SL50nMAdFlhfst_kfP8iQ"
+2025-01-04 22:54:23 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "detached-camera" jar "D7yAc-wq_0tjhddWGg7nXesMu0yHu2fUTBajXbwKjOo"
+2025-01-04 22:54:23 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "model-exporter" jar "3bFCArLwP56NbexJWgxTEp2qa05ks_WeWDHOZA_I318"
+2025-01-04 22:54:23 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "creators-kit" jar "1Lt01KiqYf226XaedrZ4R3xOFMq2_1kJlcPmy_LYgL8"
+2025-01-04 22:54:24 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "117hd" jar "rZBNYWJ20xEM1WxcIB6LbmFhoV96gKUPYYf_ia6Zm_Q"
+2025-01-04 22:54:25 GMT [main] INFO  n.r.client.discord.DiscordService - Initializing Discord RPC service.
+2025-01-04 22:54:26 GMT [main] INFO  net.runelite.client.RuneLite - Client initialization took 6400ms. Uptime: 7769ms
+2025-01-04 22:54:27 GMT [pool-2-thread-1] INFO  n.r.client.discord.DiscordService - Discord RPC service is ready with user runeface.
+GPU Flags have been changed to 0
+Changed DrawCallbacks To Null
+Created Shared Memory: sharedmem_rmSize: 50.0MB
+Created backbuffer with Size: 10.0MB
+cache contains22indexs
+GPU Flags have been changed to 0
+runelitDir: C:\Users\Soma\.runelite
+Created RuneliteMutex
+Created UnrealMutex
+Changed DrawCallbacks
+...Starting...
+PlaneChanged
+latest version = 77
+current version = 77
+...Launching RuneMod.exe...
+Launch filePath:C:\Users\Soma\.runemod\application\Windows\RuneMod\Binaries\Win64\RuneMod-Win64-Shipping.exe
+Unreal Has just Connected
+...Logging in to RuneMod...
+...Logged in to RuneMod.
+rm says it is awaiting rscacheHashes, sending them next tick.
+...Downloading RS cache...
+...Downloading RS cache...
+...Downloading RS cache...
+RSCache has finished downloading
+...Downloaded RS cache
+index 0 crc32 hash is 826399828
+index 1 crc32 hash is 653836635
+index 2 crc32 hash is 194828166
+index 3 crc32 hash is 750608983
+index 4 crc32 hash is -547704478
+index 5 crc32 hash is 967232085
+index 6 crc32 hash is -1873042359
+index 7 crc32 hash is -301486319
+index 8 crc32 hash is -1434068875
+index 9 crc32 hash is 1916022985
+index 10 crc32 hash is 561444080
+index 11 crc32 hash is 560346615
+index 12 crc32 hash is 776115462
+index 13 crc32 hash is 1693256859
+index 14 crc32 hash is -1568741226
+index 15 crc32 hash is -917888474
+index 16 crc32 hash is 0
+index 17 crc32 hash is 406416812
+index 18 crc32 hash is -61583768
+index 19 crc32 hash is -1814414952
+index 20 crc32 hash is -867896636
+index 21 crc32 hash is 1409158913
+RsCacheHashes have been provided To Unreal
+...Ready
+found runemod window
+ChildingRuneModWindowToRL
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 485 posY: 182 sizeX: 1013 sizeY: 770
+...Ready
+Updating RuneMod windows. PosX: 485 posY: 182 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 8 posY: 204 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 396 posY: 143 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 222 posY: 200 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 168 posY: 174 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 170 posY: 193 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 175 posY: 200 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 188 posY: 201 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 254 posY: 184 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 339 posY: 166 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 440 posY: 160 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 445 posY: 161 sizeX: 1013 sizeY: 770
+...Ready
+Updating RuneMod windows. PosX: 446 posY: 162 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 442 posY: 162 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 120 posY: 178 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 120 posY: 178 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 125 posY: 179 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 174 posY: 175 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 178 posY: 173 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+Updating RuneMod windows. PosX: 181 posY: 173 sizeX: 1013 sizeY: 770
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready
+...Ready

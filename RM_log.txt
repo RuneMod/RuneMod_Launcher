@@ -1,0 +1,16 @@
+2025-01-04 22:53:15 GMT [main] INFO  net.runelite.client.RuneLite - RuneLite 1.10.46.1 (launcher version unknown) starting up, args: --developer-mode
+2025-01-04 22:53:16 GMT [main] INFO  net.runelite.client.RuneLite - Java VM arguments: -ea
+2025-01-04 22:53:17 GMT [Preloader] INFO  net.runelite.client.rs.ClientLoader - Using cached vanilla client
+2025-01-04 22:53:17 GMT [Preloader] INFO  net.runelite.client.rs.ClientLoader - injected-client 12257883174.345
+2025-01-04 22:53:17 GMT [main] INFO  n.r.client.account.SessionManager - No session file exists
+2025-01-04 22:53:17 GMT [main] INFO  n.r.client.config.ConfigManager - Profile 'default' (sync: false, active: true, id: 98575807353500)
+2025-01-04 22:53:17 GMT [main] INFO  n.r.client.config.ConfigManager - Using profile: default (98575807353500)
+2025-01-04 22:53:18 GMT [main] INFO  n.r.c.plugins.kourendlibrary.Library - Library is now reset
+2025-01-04 22:53:18 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "keyframecamera" jar "sxkuoBSFYXtS-Nmm3P1Hw1SL50nMAdFlhfst_kfP8iQ"
+2025-01-04 22:53:18 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "detached-camera" jar "D7yAc-wq_0tjhddWGg7nXesMu0yHu2fUTBajXbwKjOo"
+2025-01-04 22:53:18 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "model-exporter" jar "3bFCArLwP56NbexJWgxTEp2qa05ks_WeWDHOZA_I318"
+2025-01-04 22:53:18 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "creators-kit" jar "1Lt01KiqYf226XaedrZ4R3xOFMq2_1kJlcPmy_LYgL8"
+2025-01-04 22:53:19 GMT [main] INFO  n.r.c.e.ExternalPluginManager - Loading external plugin "117hd" jar "rZBNYWJ20xEM1WxcIB6LbmFhoV96gKUPYYf_ia6Zm_Q"
+2025-01-04 22:53:20 GMT [main] INFO  n.r.client.discord.DiscordService - Initializing Discord RPC service.
+2025-01-04 22:53:21 GMT [main] INFO  net.runelite.client.RuneLite - Client initialization took 5587ms. Uptime: 6938ms
+2025-01-04 22:53:22 GMT [pool-2-thread-1] INFO  n.r.client.discord.DiscordService - Discord RPC service is ready with user runeface.

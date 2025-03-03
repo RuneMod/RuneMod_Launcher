@@ -1,2 +1,2 @@
 # RuneMod_Launcher
- Launches runemod
+ Launches runemod snapshot jar file.

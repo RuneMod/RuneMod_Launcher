@@ -21,9 +21,9 @@ import static com.Global.prepDirectories;
 
 public class RuneMod_Launcher
 {
-    private static final String LOCAL_RL_VERSION_FILE = TEMP_DIR + "localVersion.txt";
-    private static final String LATEST_RL_VERSION_FILE = TEMP_DIR + "latestVersion.txt";
-    private static final String RL_VERSION_URL = "https://runemodfiles.xyz/launcher/version.txt";
+    private static final String LOCAL_RL_VERSION_FILE = TEMP_DIR + "runemod-all_localVersion.txt";
+    private static final String LATEST_RL_VERSION_FILE = TEMP_DIR + "runemod-all_latestVersion.txt";
+    private static final String RL_VERSION_URL = "https://runemodfiles.xyz/launcher/runemod-all_Version.txt";
     private static final String RL_JAR_URL = "https://runemodfiles.xyz/launcher/runemod-all.jar";
     private static final String RL_JAR_FILEPATH = TEMP_DIR + "runemod-all.jar";
 
@@ -37,11 +37,15 @@ public class RuneMod_Launcher
 
     	//delete cred file so we can use normal accounts.
 		Path filePath = Paths.get(RUNELITE_DIR+"\\credentials.properties");
-		try {
-			Files.delete(filePath);
-			log("File deleted successfully.");
-		} catch (Exception e) {
-			System.err.println("Error deleting file: " + e.getMessage());
+		if (Files.exists(filePath)) {
+			try {
+
+				Files.delete(filePath);
+				log("deleted Creds File.");
+
+			} catch (Exception e) {
+				System.err.println("Error deleting file: " + e.getMessage());
+			}
 		}
 
 		removeWriteCredsArg();

@@ -25,9 +25,8 @@ public class Global
 		connection.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64)");
 		connection.connect();
 
-		try (InputStream in = connection.getInputStream()) {
-			Files.copy(in, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
-		}
+		InputStream in = connection.getInputStream();
+		Files.copy(in, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
 		return new String(Files.readAllBytes(Paths.get(destination)));
 	}
 

@@ -15,8 +15,8 @@ import static com.Global.prepDirectories;
 //this class is an updater and launcher for the launcher. Hopefully we wont ever need to update this.
 public class RuneMod
 {
-	private static final String LOCAL_LAUNCHER_VERSION_FILE = TEMP_DIR + "launcher_localVersion.txt";
-	private static final String LATEST_LAUNCHER_VERSION_FILE = TEMP_DIR + "launcher_latestVersion.txt";
+	private static final String LOCAL_LAUNCHER_VERSION_FILE = TEMP_DIR + "RuneMod_Launcher_LocalVersion.txt";
+	private static final String LATEST_LAUNCHER_VERSION_FILE = TEMP_DIR + "RuneMod_Launcher_LatestVersion.txt";
 	private static final String LAUNCHER_VERSION_URL = "https://runemodfiles.xyz/launcher/RuneMod_Launcher_Version.txt";
 	private static final String LAUNCHER_JAR_URL = "https://runemodfiles.xyz/launcher/RuneMod_Launcher.jar";
 	private static final String LAUNCHER_JAR_FILEPATH = TEMP_DIR + "RuneMod_Launcher.jar";

@@ -11,12 +11,18 @@ public class Main {
     private static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
     private static final String LOCAL_VERSION_FILE = TEMP_DIR + "localVersion.txt";
     private static final String LATEST_VERSION_FILE = TEMP_DIR + "latestVersion.txt";
-    private static final String VERSION_URL = "https://pub-64c85893ea904aedab24caeb10432ae1.r2.dev/launcher/version.txt";
-    private static final String JAR_URL = "https://pub-64c85893ea904aedab24caeb10432ae1.r2.dev/launcher/runemod-all.jar";
+    private static final String VERSION_URL = "https://runemodfiles.xyz/launcher/version.txt";
+    private static final String JAR_URL = "https://runemodfiles.xyz/launcher/runemod-all.jar";
     private static final String JAR_FILE = TEMP_DIR + "runemod-all.jar";
-    private static final String LOG_FILE = "RM_launcher_log.txt";
+    private static final String rmLogsLocation = System.getProperty("user.home") + "\\.runemod\\logs\\";
 
     public static void main(String[] args) {
+        try {
+            Files.createDirectories(Paths.get(rmLogsLocation));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             log("RM_Launcher_START");
 
@@ -72,13 +78,22 @@ public class Main {
     }
 
     private static void runJarFile() throws IOException {
-        String command = "cmd.exe /c java -jar -ea %temp%\\runemod-all.jar --developer-mode >> RM_log.txt";
+        String command = "java -jar -ea %temp%\\runemod-all.jar --developer-mode";
 
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
         processBuilder.directory(new File(System.getProperty("user.dir"))); // Set the working directory
+        processBuilder.redirectErrorStream(true); // Merge error stream with output stream
 
         try {
             Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+
+            // Log output from the process
+            while ((line = reader.readLine()) != null) {
+                log(line);
+            }
+
             int exitCode = process.waitFor(); // Wait for the process to complete
             log("Process exited with code: " + exitCode);
         } catch (IOException | InterruptedException e) {
@@ -87,7 +102,7 @@ public class Main {
     }
 
     private static void log(String message) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rmLogsLocation +"RM_launcher_log.txt", true))) {
             writer.write(message);
             writer.newLine();
             System.out.println(message);

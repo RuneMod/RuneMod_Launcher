@@ -1,4 +1,0 @@
-Local Version: -1
-Latest Version: 79
-RM Plugin updating to version 79...
-Process exited with code: 0

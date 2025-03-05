@@ -1,3 +1,5 @@
+com\Global.class
 com\RuneMod.class
 com\RuneMod_Launcher.class
-com\Global.class
+com\RuneMod_Launcher$1.class
+com\RuneMod_Launcher$2.class

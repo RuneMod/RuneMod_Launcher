@@ -10,7 +10,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Locale;
 import javax.swing.JOptionPane;
 
 public class Global
@@ -32,11 +31,21 @@ public class Global
 
 	private static final String rmLogsLocation = System.getProperty("user.home") + "\\.runemod\\logs\\";
 
+	public static boolean runningFromIntelliJ()
+	{
+		String classPath = System.getProperty("java.class.path");
+		return classPath.contains("idea_rt.jar");
+	}
+
 	public static void log(String message) {
+		if(runningFromIntelliJ()) {
+			System.out.println(message);
+		}
+
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(rmLogsLocation +"RM_launcher_log.txt", true))) {
 			writer.write(message);
 			writer.newLine();
-			System.out.println(message);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

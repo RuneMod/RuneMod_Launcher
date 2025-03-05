@@ -31,6 +31,8 @@ public class RuneMod
 		} catch (IOException e) {
 			log("Error: " + e.getMessage());
 		}
+
+		log("RuneMod executor program finished");
 	}
 
 	private static void runLauncherJarFile() throws IOException {
@@ -39,8 +41,8 @@ public class RuneMod
 
 		ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
 		processBuilder.directory(new File(System.getProperty("user.dir"))); // Set the working directory
-		processBuilder.redirectErrorStream(true); // Merge error stream with output stream
-
+		processBuilder.start();
+/*		processBuilder.redirectErrorStream(true); // Merge error stream with output stream
 		try {
 			Process process = processBuilder.start();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -52,10 +54,10 @@ public class RuneMod
 			}
 
 			int exitCode = process.waitFor(); // Wait for the process to complete
-			log("Process exited with code: " + exitCode);
+			log("Launcher executor Process exited with code: " + exitCode);
 		} catch (IOException | InterruptedException e) {
 			log("Error: " + e.getMessage());
-		}
+		}*/
 	}
 
 	public static void checkFor_RuneMod_Launcher_Updates() {

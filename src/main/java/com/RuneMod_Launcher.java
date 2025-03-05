@@ -6,10 +6,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -116,7 +125,7 @@ public class RuneMod_Launcher
 
 			int response = JOptionPane.showConfirmDialog(null,
 				"             Login with:",
-				"Runemod Setup",
+				"RuneMod Setup",
 				JOptionPane.YES_NO_OPTION);
 
 			if (response == JOptionPane.YES_OPTION) {
@@ -125,7 +134,7 @@ public class RuneMod_Launcher
 						"Step 1: Launch RuneLite, using the Jagex launcher.\n" +
 						"Step 2: Close RuneLite.\n" +
 						"Step 3: Click the continue button bellow.";
-					int continueResponse = JOptionPane.showConfirmDialog(null, message, "Runemod Setup", JOptionPane.OK_CANCEL_OPTION);
+					int continueResponse = JOptionPane.showConfirmDialog(null, message, "RuneMod Setup", JOptionPane.OK_CANCEL_OPTION);
 
 					if (continueResponse == JOptionPane.OK_OPTION) {
 						enableJagAccountMode();
@@ -166,14 +175,82 @@ public class RuneMod_Launcher
 		}
 	}
 
+	private static boolean isJavaVersionEnough() {
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", "java -version");
+			processBuilder.redirectErrorStream(true);
+			Process process = processBuilder.start();
+
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (line.contains("version")) {
+					String version = line.split("\"")[1]; // Extract version string
+					int majorVersion = Integer.parseInt(version.split("\\.")[0]); // Get major version
+					if (majorVersion >= 11) {
+						log("Java version is ok. version: "+ majorVersion);
+						return true;
+					}
+				}
+			}
+			process.waitFor();
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		log("Java version is no high enough");
+		return false;
+	}
+
+	private static void openWebpage(String uri) {
+		try {
+			Desktop.getDesktop().browse(new URI(uri));
+		} catch (IOException | URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void createJavaDownloadPopup() {
+		JOptionPane optionPane = new JOptionPane(
+			"Your Java version is too low. Java 11 or higher is required.",
+			JOptionPane.INFORMATION_MESSAGE);
+
+		JButton downloadButton = new JButton("Download Java 11");
+		downloadButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.printf(e.getActionCommand());
+				openWebpage("https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.23%2B9/OpenJDK11U-jre_x64_windows_hotspot_11.0.23_9.msi");
+				System.exit(0);
+			}
+		});
+
+		optionPane.setOptions(new Object[]{downloadButton});
+		JDialog dialog = optionPane.createDialog("RuneMod setup");
+
+		//on exit button
+		dialog.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+
+		dialog.setVisible(true);
+	}
 
     public static void main(String[] args) {
-		enableDarkMode();
+		try {
+			prepDirectories();
 
-		prepDirectories();
+			log("RM_Launcher_START");
 
-        try {
-            log("RM_Launcher_START");
+			enableDarkMode();
+
+			if(!isJavaVersionEnough()) {
+				createJavaDownloadPopup();
+			}
+
 			accTypeSelector();
 			checkForRL_Jar_Updates();
             runRuneliteJarFile();
@@ -209,7 +286,7 @@ public class RuneMod_Launcher
         processBuilder.directory(new File(System.getProperty("user.dir"))); // Set the working directory
         processBuilder.redirectErrorStream(true); // Merge error stream with output stream
 
-        try {
+       try {
             Process process = processBuilder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
@@ -220,7 +297,7 @@ public class RuneMod_Launcher
             }
 
             int exitCode = process.waitFor(); // Wait for the process to complete
-            log("Process exited with code: " + exitCode);
+            log("Launcher Process exited with code: " + exitCode);
         } catch (IOException | InterruptedException e) {
             log("Error: " + e.getMessage());
         }

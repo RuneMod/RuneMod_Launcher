@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.WinReg;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +37,36 @@ public class RuneMod_Launcher
     private static final String RL_VERSION_URL = "https://runemodfiles.xyz/launcher/runemod-all_Version.txt";
     private static final String RL_JAR_URL = "https://runemodfiles.xyz/launcher/runemod-all.jar";
     private static final String RL_JAR_FILEPATH = TEMP_DIR + "runemod-all.jar";
+
+    public static String getRuneliteInstallDir() {
+		String RlInstallLocation = "null"; //default install folder
+		//System.out.println(System.getenv("LOCALAPPDATA")+"\\RuneLite\\");
+		if(Files.exists(Paths.get(System.getenv("LOCALAPPDATA")+"\\RuneLite"))) //id default location invalid, see if location is defined in registry.
+		{
+			RlInstallLocation = System.getenv("LOCALAPPDATA")+"\\RuneLite\\";
+		}else {
+			WinReg.HKEY keyRoot = WinReg.HKEY_CURRENT_USER;
+			String keyLocation = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RuneLite Launcher_is1";
+			String keyName = "InstallLocation";
+			boolean keyExists = Advapi32Util.registryValueExists(keyRoot, keyLocation, keyName);
+			if(keyExists) {
+				log("Install path Registry key exists:" + keyExists);
+				String keyVal = Advapi32Util.registryGetStringValue(keyRoot, keyLocation, keyName);
+				log("Install Location key value: " + keyVal);
+
+				if(Files.exists(Paths.get(keyVal))) {
+					RlInstallLocation = keyVal;
+				} else {
+					log("cant find rl Install folder: "+RlInstallLocation);
+				}
+			} else {
+				log("cant find rl Install folder: "+RlInstallLocation);
+			}
+		}
+
+		log("Rl install location: "+RlInstallLocation);
+		return RlInstallLocation;
+	}
 
     public static void enableDarkMode() {
 		log("Setting Dark Mode");
@@ -91,22 +123,47 @@ public class RuneMod_Launcher
 	}
 
 	public static void addWriteCredsArg() {
-		String settingsFilePath = System.getenv("LOCALAPPDATA")+"\\RuneLite\\settings.json";
-		log("rl settings FilePath: " + settingsFilePath);
+		String RlInstallLocation = getRuneliteInstallDir();
+
+		if(RlInstallLocation.equalsIgnoreCase("null")) {
+			createNoRlInstallFoundPopup();
+		}
+
+		String settingsFilePath = RlInstallLocation+"\\settings.json";
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-		try (FileReader reader = new FileReader(settingsFilePath)) {
-			JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-			JsonArray clientArguments = jsonObject.getAsJsonArray("clientArguments");
+		log("rl settings FilePath: " + settingsFilePath);
+		if (!Files.exists(Paths.get(settingsFilePath))) { //if settings file does not exist
+			log("Can't find settings.json file, creating a new one");
 
+			// Create a new JsonObject and JsonArray
+			JsonObject jsonObject = new JsonObject();
+			JsonArray clientArguments = new JsonArray();
+			jsonObject.add("clientArguments", clientArguments);
+
+			// Add the argument to the JsonArray
 			clientArguments.add("--insecure-write-credentials");
 
+			// Write the new JsonObject to the file
 			try (FileWriter writer = new FileWriter(settingsFilePath)) {
 				gson.toJson(jsonObject, writer);
+			} catch (IOException e) {
+				log(e.getMessage());
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} else {
+			try (FileReader reader = new FileReader(settingsFilePath)) {
+				JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+				JsonArray clientArguments = jsonObject.getAsJsonArray("clientArguments");
+
+				clientArguments.add("--insecure-write-credentials");
+
+				try (FileWriter writer = new FileWriter(settingsFilePath)) {
+					gson.toJson(jsonObject, writer);
+				}
+			} catch (IOException e) {
+				log(e.getMessage());
+			}
 		}
 	}
 
@@ -130,14 +187,16 @@ public class RuneMod_Launcher
 
 			if (response == JOptionPane.YES_OPTION) {
 				if(!credExists()) { //if no creds exist, means setup is needed.
+					enableJagAccountMode();
+
 					String message = "To use a Jagex account:\n" +
 						"Step 1: Launch RuneLite, using the Jagex launcher.\n" +
 						"Step 2: Close RuneLite.\n" +
-						"Step 3: Click the continue button bellow.";
+						"Step 3: Click the continue button below.";
 					int continueResponse = JOptionPane.showConfirmDialog(null, message, "RuneMod Setup", JOptionPane.OK_CANCEL_OPTION);
 
 					if (continueResponse == JOptionPane.OK_OPTION) {
-						enableJagAccountMode();
+
 					} else if (continueResponse == JOptionPane.CANCEL_OPTION) {
 						//Go back
 						accTypeSelector();
@@ -190,6 +249,8 @@ public class RuneMod_Launcher
 					if (majorVersion >= 11) {
 						log("Java version is ok. version: "+ majorVersion);
 						return true;
+					} else{
+						log("Java version is not ok. version: "+ majorVersion);
 					}
 				}
 			}
@@ -208,6 +269,35 @@ public class RuneMod_Launcher
 		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static void createNoRlInstallFoundPopup() {
+		JOptionPane optionPane = new JOptionPane(
+			"No Runelite installation was found. Runelite is required",
+			JOptionPane.INFORMATION_MESSAGE);
+
+		JButton downloadButton = new JButton("Get Runelite");
+		downloadButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.printf(e.getActionCommand());
+				openWebpage("https://runelite.net/");
+				System.exit(0);
+			}
+		});
+
+		optionPane.setOptions(new Object[]{downloadButton});
+		JDialog dialog = optionPane.createDialog("RuneMod setup");
+
+		//on exit button
+		dialog.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+
+		dialog.setVisible(true);
 	}
 
 	private static void createJavaDownloadPopup() {
@@ -247,9 +337,9 @@ public class RuneMod_Launcher
 
 			enableDarkMode();
 
-			if(!isJavaVersionEnough()) {
+/*			if(!isJavaVersionEnough()) {
 				createJavaDownloadPopup();
-			}
+			}*/
 
 			accTypeSelector();
 			checkForRL_Jar_Updates();
@@ -279,7 +369,8 @@ public class RuneMod_Launcher
 	}
 
     private static void runRuneliteJarFile() throws IOException {
-        String command = "java -jar -ea %temp%\\RuneMod\\runemod-all.jar --developer-mode";
+    	String runeliteJava = getRuneliteInstallDir()+ "jre\\bin\\java.exe"; //java installation in runelite dir
+        String command = '"' + runeliteJava+'"'+" -jar -ea %temp%\\RuneMod\\runemod-all.jar --developer-mode";
 		log("Running jar file with command "+command);
 
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);

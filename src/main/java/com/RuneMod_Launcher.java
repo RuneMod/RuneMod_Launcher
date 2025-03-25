@@ -122,6 +122,28 @@ public class RuneMod_Launcher
 		}
 	}
 
+	public static String readSettingsArguments() { //reads args setup through runelite configure tool (if they exist)
+		String args = "";
+		String settingsFilePath = System.getenv("LOCALAPPDATA") + "\\RuneLite\\settings.json";
+		//log("rl settings FilePath: " + settingsFilePath);
+
+		try (FileReader reader = new FileReader(settingsFilePath)) {
+			JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+			JsonArray clientArguments = jsonObject.getAsJsonArray("clientArguments");
+			if (clientArguments != null) {
+
+				for (int i = 0; i < clientArguments.size(); i++) {
+					args+=clientArguments.get(i).getAsString();
+				}
+			}
+		} catch (IOException e) {
+			log("Couldn't read existing setting file");
+		}
+
+		log("user args: " + args);
+		return args;
+	}
+
 	public static void addWriteCredsArg() {
 		String RlInstallLocation = getRuneliteInstallDir();
 
@@ -287,7 +309,7 @@ public class RuneMod_Launcher
 		});
 
 		optionPane.setOptions(new Object[]{downloadButton});
-		JDialog dialog = optionPane.createDialog("RuneMod setup");
+		JDialog dialog = optionPane.createDialog("RuneMod Setup");
 
 		//on exit button
 		dialog.addWindowListener(new WindowAdapter() {
@@ -316,7 +338,7 @@ public class RuneMod_Launcher
 		});
 
 		optionPane.setOptions(new Object[]{downloadButton});
-		JDialog dialog = optionPane.createDialog("RuneMod setup");
+		JDialog dialog = optionPane.createDialog("RuneMod Setup");
 
 		//on exit button
 		dialog.addWindowListener(new WindowAdapter() {
@@ -329,6 +351,19 @@ public class RuneMod_Launcher
 		dialog.setVisible(true);
 	}
 
+	public static void checkDiskSpace() {
+		File drive = new File("C:\\");
+
+		long freeSpace = drive.getFreeSpace();
+		// Convert bytes to gigabytes
+		long freeSpaceInGB = freeSpace / (1024 * 1024 * 1024);
+
+		if (freeSpaceInGB < 6) {
+			JOptionPane.showMessageDialog(null, "You need atleast 6gb of free disk space. Available: " + freeSpaceInGB + " GB", "RuneMod Setup", JOptionPane.ERROR_MESSAGE);
+			System.exit(0);
+		}
+	}
+
     public static void main(String[] args) {
 		try {
 			prepDirectories();
@@ -336,6 +371,8 @@ public class RuneMod_Launcher
 			log("RM_Launcher_START");
 
 			enableDarkMode();
+
+			checkDiskSpace();
 
 /*			if(!isJavaVersionEnough()) {
 				createJavaDownloadPopup();
@@ -370,7 +407,8 @@ public class RuneMod_Launcher
 
     private static void runRuneliteJarFile() throws IOException {
     	String runeliteJava = getRuneliteInstallDir()+ "jre\\bin\\java.exe"; //java installation in runelite dir
-        String command = '"' + runeliteJava+'"'+" -jar -ea %temp%\\RuneMod\\runemod-all.jar --developer-mode";
+        //String command = '"' + runeliteJava+'"'+" -jar -ea %temp%\\RuneMod\\runemod-all.jar --developer-mode";
+		String command = '"' + runeliteJava+'"'+" -jar -ea %temp%\\RuneMod\\runemod-all.jar --developer-mode " + readSettingsArguments();
 		log("Running jar file with command "+command);
 
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);

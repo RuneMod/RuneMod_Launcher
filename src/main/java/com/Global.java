@@ -49,9 +49,9 @@ public class Global
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(message.toLowerCase().contains("error")) {
+/*		if(message.toLowerCase().contains("error")) {
 			displayError(message);
-		}
+		}*/
 	}
 
 	public static void prepDirectories() {
